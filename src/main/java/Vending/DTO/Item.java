@@ -7,9 +7,12 @@ public class Item {
     public String name;
     BigDecimal cost;
     public int numberOf;
-    public Item(String name){
+    public Item(String name, BigDecimal cost, int numberOf){
         this.name = name;
+        this.cost = cost;
+        this.numberOf = numberOf;
     }
+
     public String getName() {
         return name;
     }

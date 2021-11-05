@@ -45,10 +45,9 @@ public class VendingDaoFileImpl implements VendingDao{
     private Item unmarshallItem(String itemAsText) {
         String[] itemTokens = itemAsText.split(DELIMITER);
         String name = itemTokens[0];
-        Item itemFromFile = new Item(name);
         BigDecimal dec = new BigDecimal(itemTokens[1]);
-        itemFromFile.setCost(dec);
-        itemFromFile.setNumberOf(Integer.parseInt(itemTokens[2]));
+        Item itemFromFile = new Item(name,dec,Integer.parseInt(itemTokens[2]));
+
         return itemFromFile;
     }
 

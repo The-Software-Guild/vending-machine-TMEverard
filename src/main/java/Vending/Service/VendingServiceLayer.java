@@ -11,8 +11,8 @@ public interface VendingServiceLayer {
         List<Item> getAllItems() throws
                 VendingPersistenceException;
 
-        Item getItem(String name) throws VendingPersistenceException;
+        Item getItem(String name) throws VendingPersistenceException, VendingDataValidationException, OutOfStockException;
 
         void updateStock(String name, Item newVersion) throws
-                VendingPersistenceException;
+                VendingPersistenceException, OutOfStockException;
 }

@@ -20,12 +20,15 @@ public class VendingView {
             return io.readInt("Please select from the above choices either 1 or 2.", 1, 2);
         }
 
-        public BigDecimal enterMoney(){
-            io.print("Enter your money: ");
-            String money = io.readString("Money here: ");
-            return new BigDecimal(money);
-
+        public BigDecimal enterMoney() throws NumberFormatException, UserEntryException{
+            String money = io.readString("Enter your money here: ");
+            BigDecimal dec = new BigDecimal(money);
+            if(dec.compareTo(new BigDecimal("0"))<=0){
+                throw new UserEntryException("Cannot enter negative or no money!");
+            }
+            return dec;
         }
+
         public String pick(){
             io.print("Select your product");
             return io.readString("Please select from the above choice by name.");
@@ -35,7 +38,6 @@ public class VendingView {
             io.print("The options are: ");
                 int i = 0;
                  for (Item s : itemList) {
-                     //Only selects it to be shown if the product is in stock
                      if(s.getNumberOf()>0){
                      i++;
                     io.print(i + " - Product= " + s.getName() + " Cost= " + s.getCost() + " Number left= " + s.getNumberOf());

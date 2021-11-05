@@ -1,31 +1,26 @@
 package Vending.Service;
 
-import Vending.DTO.Item;
 import Vending.Dao.VendingDao;
 import Vending.Dao.VendingPersistenceException;
-import Vending.UI.VendingView;
-import Vending.Service.VendingServiceLayer;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 
 public class Change {
-
     private VendingDao dao;
     private VendingServiceLayer service;
+    public Change() {
+        }
 
-
-    public BigDecimal changeGiven(BigDecimal funds, BigDecimal price) throws VendingPersistenceException {
+    public BigDecimal changeGiven(BigDecimal funds, BigDecimal price) throws VendingPersistenceException, InsufficientFundsException {
         BigDecimal changeGiven;
-
-        //if (price.compareTo(funds) > 0) {
-            //Exception
-        //} else {
+        if (price.compareTo(funds) > 0) {
+            throw new InsufficientFundsException("Insufficient funds!");
+        } else {
         changeGiven = funds.subtract(price);
-        //}
+        }
         return changeGiven;
     }
 
@@ -47,7 +42,7 @@ public class Change {
 
     List<BigDecimal> denoms = List.of(new BigDecimal[]{val1, val2, val3, val4, val5, val6, val7, val8});
 
-    public ArrayList coinsGiven(BigDecimal changeGiven) {
+    public ArrayList coinsGiven(BigDecimal changeGiven){
         ArrayList<BigDecimal> change = new ArrayList<>();
         //Hard coded because unlikely new coins made
         BigDecimal value = changeGiven;
